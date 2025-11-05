@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:perinvest_app/app/cryptos/cryptos.controller.dart';
-import 'package:perinvest_app/helpers/toast.helper.dart';
 
 class CryptosPage extends StatefulWidget {
   const CryptosPage({super.key});
@@ -10,33 +9,22 @@ class CryptosPage extends StatefulWidget {
 }
 
 class CryptosPageState extends State<CryptosPage> {
+  final cryptosController = CryptosController();
   final emailController = TextEditingController();
   final passController = TextEditingController();
 
-  dynamic response;
   bool isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    _loadCryptos();
+    cryptosController.getCryptos();
   }
 
-  Future<void> _loadCryptos() async {
-    try {
-      final res = await CryptosController.getCriptos();
-      if (!mounted) return;
-
-      setState(() {
-        response = res;
-        isLoading = false;
-      });
-    } catch (ex) {
-      if (mounted) {
-        setState(() => isLoading = false);
-        ToastHelper.warning("Erro ao carregar criptos");
-      }
-    }
+  @override
+  void dispose() {
+    cryptosController.dispose(); // importante liberar
+    super.dispose();
   }
 
   @override
@@ -50,14 +38,10 @@ class CryptosPageState extends State<CryptosPage> {
       body: Container(
         width: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.all(27),
-        child:  ListView(
-          children: [
-            if(response == null) ...[
-              Row( children: [ Text("response is null") ], )
-            ] else ...[
-              Row( children: [ Text("")],)
-            ]
-          ],
+        child: ListenableBuilder(
+          listenable: cryptosController, 
+          builder: (context, child) => 
+            cryptosController.getCryptosList()
         ),
       ),
     );
