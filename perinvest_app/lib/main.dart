@@ -12,6 +12,7 @@ class PerInvestApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'PerInvest',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.deepPurple,

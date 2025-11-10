@@ -10,10 +10,6 @@ class CryptosPage extends StatefulWidget {
 
 class CryptosPageState extends State<CryptosPage> {
   final cryptosController = CryptosController();
-  final emailController = TextEditingController();
-  final passController = TextEditingController();
-
-  bool isLoading = true;
 
   @override
   void initState() {
@@ -29,21 +25,22 @@ class CryptosPageState extends State<CryptosPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-   extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-      ),
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        padding: const EdgeInsets.all(27),
-        child: ListenableBuilder(
-          listenable: cryptosController, 
-          builder: (context, child) => 
-            cryptosController.getCryptosList()
-        ),
-      ),
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      padding: const EdgeInsets.all(27),
+      child:ListenableBuilder(
+        listenable: cryptosController,
+        builder: (context, child) {
+          // se quiser mostrar loading:
+          // if (cryptosController.isLoading) {
+          //   return const Center(child: CircularProgressIndicator());
+          // } 
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: cryptosController.getCryptosList()
+          );
+        }
+      )
     );
   }
 }
