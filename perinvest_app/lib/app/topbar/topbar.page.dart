@@ -1,0 +1,52 @@
+import 'package:flutter/material.dart';
+import 'package:perinvest_app/app/topbar/topbar.controller.dart';
+
+class Topbar extends StatefulWidget {
+  const Topbar({super.key, required this.title});
+  final String title;
+
+  @override
+  State<Topbar> createState() => TopbarState();
+}
+
+class TopbarState extends State<Topbar> {
+  final topbarController = TopbarController();
+
+  @override
+  void dispose() {
+    topbarController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 70,
+      color: Colors.grey.shade900,
+      width: double.infinity,
+      alignment: Alignment.bottomCenter,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children:[
+          IconButton(
+            icon: const Icon(Icons.arrow_back_ios),
+            onPressed: () {
+              debugPrint("Clicou no botão!");
+              print("LOGOUT");
+              TopbarController.logout(context);
+            },
+          ),
+          Text(
+            widget.title,
+            style: TextStyle(
+              fontSize: 27,
+              fontWeight: FontWeight.bold,
+              color: Colors.amber.shade900
+            ),
+          ),
+        ]
+      )
+    );
+  }
+}

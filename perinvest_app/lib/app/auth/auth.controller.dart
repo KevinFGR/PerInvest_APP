@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:perinvest_app/app/cryptos/cryptos.page.dart';
 import 'package:perinvest_app/app/pages.dart';
 import 'package:perinvest_app/helpers/toast.helper.dart';
 import 'package:perinvest_app/services/auth.service.dart';
@@ -8,10 +7,9 @@ import 'package:perinvest_app/services/token.service.dart';
 
 
 class LoginController {
-  static void openCryptosPage(BuildContext context) {
+  static void openPages(BuildContext context) {
     Navigator.pushReplacement(
       context,
-      // MaterialPageRoute(builder: (context) => const CryptosPage()),
       MaterialPageRoute(builder: (context) => const Pages()),
     );
   }

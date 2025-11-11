@@ -5,17 +5,8 @@ import 'package:perinvest_app/services/cryptos.service.dart';
 
 class PagesController extends ChangeNotifier{
 
-  String Title = "Cryptos";
+  String title = "CRYPTOS";
   List<dynamic> cryptos = [];
-
-  static void navigateToListPage(BuildContext context) {
-    // Navigator.pushReplacement(
-    //   context,
-    //   MaterialPageRoute(builder: (context) => const ListPage()),
-    // );
-  }
-
-
 
   Future<void> getCryptos() async {
     CryptosService cryptosService =  CryptosService();
@@ -47,7 +38,7 @@ class PagesController extends ChangeNotifier{
           // ),
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
-            color: Colors.amber[900]!,
+            color: Colors.amber.shade900,
             width: 0.3,             
           ),
           boxShadow: [

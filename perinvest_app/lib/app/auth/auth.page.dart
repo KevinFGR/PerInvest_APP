@@ -30,11 +30,12 @@ class _LoginPageState extends State<LoginPage> {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Colors.amber[900]!, 
-              const Color.fromARGB(255, 0, 16, 28)
+              Colors.amber.shade900, 
+              Colors.amber.shade900.withValues(alpha:0.1)
+              // const Color.fromARGB(255, 0, 16, 28)
             ],
             begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+            end: Alignment.centerRight,
           ),
         ),
         child:  Column(
@@ -147,7 +148,7 @@ class _LoginPageState extends State<LoginPage> {
                   setState(() => isLoading = true);
                   bool login = await LoginController.auth( emailController.text, passController.text );
                   if(context.mounted && login){
-                    LoginController.openCryptosPage(context);
+                    LoginController.openPages(context);
                   }
                   setState(() => isLoading = false);
                 }

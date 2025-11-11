@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:perinvest_app/app/cryptos/cryptos.controller.dart';
-import 'package:perinvest_app/app/cryptos/cryptos.page.dart';
+import 'package:perinvest_app/app/pages/cryptos/cryptos.page.dart';
 import 'package:perinvest_app/app/pages.controller.dart';
+import 'package:perinvest_app/app/topbar/topbar.page.dart';
 
 class Pages extends StatefulWidget {
   const Pages({super.key});
@@ -12,7 +12,6 @@ class Pages extends StatefulWidget {
 
 class PagesState extends State<Pages> {
   final pagesController = PagesController();
-  // final cryptosController = CryptosController();
   final cryptosPage = const CryptosPage();
 
   bool isLoading = true;
@@ -27,25 +26,26 @@ class PagesState extends State<Pages> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-      ),
-      body: SingleChildScrollView(
-        // width: MediaQuery.of(context).size.width,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: 50),
-            Text(pagesController.Title),
-            // ListenableBuilder(
-            //   listenable: cryptosController, 
-            //   builder: (context, child) => cryptosPage
-            // )
-            cryptosPage
-          ],
-        )
-      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Topbar(title: pagesController.title),
+          // Container(
+          //   decoration: BoxDecoration(color: Colors.amber.shade900),
+          //   child: 
+          // ),
+          Expanded(child: cryptosPage),
+
+           // --- BOTTOM BAR fixo (exemplo)
+          Container(
+            height:100,
+            width: double.infinity,
+            color: Colors.grey[900],
+            padding: const EdgeInsets.all(12),
+            child: const Text('Bottom bar (fixa)'),
+          ),
+        ],
+      )
     );
   }
 }
