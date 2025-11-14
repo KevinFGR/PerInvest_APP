@@ -8,6 +8,13 @@ class CryptosController extends ChangeNotifier{
 
   List<dynamic> cryptos = [];
   bool isLoading = true;
+
+  Function(Widget)? callbackPage;
+
+  void initCallback(Function(Widget) func) {
+    callbackPage = func;
+  }
+
   static void goToCreate(BuildContext context) {
     Navigator.pushReplacement(
       context,
@@ -33,35 +40,36 @@ class CryptosController extends ChangeNotifier{
     for (var i = 0; i < cryptos.length; i++) {
       cryptosList.add(SizedBox(
         width: double.infinity,
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.grey.shade900,
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.centerLeft,
-              colors: [
-                Colors.grey.shade900,
-                Colors.amber.shade900,
-              ],
-              stops: [0.8, 0.99]
-            ),
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(
-              color: Colors.amber[900]!,
-              width: 0.5,             
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.amber.shade900.withValues(alpha:0.3),
-                spreadRadius: 1,
-                blurRadius: 3,
-                offset: const Offset(0, 0)
+        child: GestureDetector(
+          onTap: () => callbackPage?.call(CryptosCreatePage()),
+          // onTap: () => CryptosController.goToCreate(context),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.grey.shade900,
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.centerLeft,
+                colors: [
+                  Colors.grey.shade900,
+                  Colors.amber.shade900,
+                ],
+                stops: [0.8, 0.99]
               ),
-            ],
-          ),
-          padding: const EdgeInsets.all(15),
-          child:GestureDetector(
-            onTap: () => CryptosController.goToCreate(context),
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                color: Colors.amber[900]!,
+                width: 0.5,             
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.amber.shade900.withValues(alpha:0.3),
+                  spreadRadius: 1,
+                  blurRadius: 3,
+                  offset: const Offset(0, 0)
+                ),
+              ],
+            ),
+            padding: const EdgeInsets.all(15),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

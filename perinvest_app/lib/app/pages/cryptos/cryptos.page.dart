@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:perinvest_app/app/pages/cryptos/cryptos.controller.dart';
 
 class CryptosPage extends StatefulWidget {
-  const CryptosPage({super.key});
+    final Function(Widget) onChangePage;
+    const CryptosPage({super.key, required this.onChangePage});
 
   @override
   State<CryptosPage> createState() => CryptosPageState();
@@ -14,6 +15,7 @@ class CryptosPageState extends State<CryptosPage> {
   @override
   void initState() {
     super.initState();
+    cryptosController.initCallback(widget.onChangePage);
     cryptosController.getCryptos();
   }
 
@@ -35,7 +37,7 @@ class CryptosPageState extends State<CryptosPage> {
           builder: (context, child) {
             // if (cryptosController.isLoading) {
             //   return const Center(child: CircularProgressIndicator());
-            // } 
+            // }
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: cryptosController.getCryptosList(context),

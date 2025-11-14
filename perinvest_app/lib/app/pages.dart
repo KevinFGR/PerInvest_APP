@@ -12,9 +12,25 @@ class Pages extends StatefulWidget {
 
 class PagesState extends State<Pages> {
   final pagesController = PagesController();
-  final cryptosPage = const CryptosPage();
+  // final cryptosPage = const CryptosPage();
+
+  // Widget currentPage = CryptosPage(onChangePage: changePageCallback);
+  late Widget currentPage;
 
   bool isLoading = true;
+
+  void changePageCallback(Widget? page) {
+    print("Pai recebeu: uma pagina");
+    setState(() {
+      currentPage = page ?? CryptosPage(onChangePage: changePageCallback);
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    changePageCallback(null);
+  }
 
   @override
   void dispose() {
@@ -30,12 +46,9 @@ class PagesState extends State<Pages> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Topbar(title: pagesController.title),
-          // Container(
-          //   decoration: BoxDecoration(color: Colors.amber.shade900),
-          //   child: 
-          // ),
-          Expanded(child: cryptosPage),
-          
+          Expanded(child: currentPage),
+          // Expanded(child: cryptosPage),
+
           Container(
             height:100,
             width: double.infinity,
