@@ -33,7 +33,6 @@ class TopbarState extends State<Topbar> {
             icon: const Icon(Icons.arrow_back_ios),
             onPressed: () {
               debugPrint("Clicou no botão!");
-              print("LOGOUT");
               TopbarController.logout(context);
             },
           ),

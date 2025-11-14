@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:perinvest_app/app/pages/cryptos/create/cryptos.create.page.dart';
 import 'package:perinvest_app/helpers/toast.helper.dart';
 import 'package:perinvest_app/services/cryptos.service.dart';
 
 
 class CryptosController extends ChangeNotifier{
 
-  String teste = "Teste";
   List<dynamic> cryptos = [];
   bool isLoading = true;
-  static void navigateToListPage(BuildContext context) {
-    // Navigator.pushReplacement(
-    //   context,
-    //   MaterialPageRoute(builder: (context) => const ListPage()),
-    // );
+  static void goToCreate(BuildContext context) {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const CryptosCreatePage()),
+    );
   }
 
   Future<void> getCryptos() async {
@@ -28,7 +28,7 @@ class CryptosController extends ChangeNotifier{
     notifyListeners();
   }
 
-  List<Widget> getCryptosList(){
+  List<Widget> getCryptosList(BuildContext context){
     List<Widget> cryptosList = [];
     for (var i = 0; i < cryptos.length; i++) {
       cryptosList.add(SizedBox(
@@ -60,7 +60,16 @@ class CryptosController extends ChangeNotifier{
             ],
           ),
           padding: const EdgeInsets.all(15),
-          child:Text(cryptos[i]['description'])
+          child:GestureDetector(
+            onTap: () => CryptosController.goToCreate(context),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(cryptos[i]['description']),
+                const Icon(Icons.arrow_forward_ios, size: 15, color: Colors.grey),
+              ]
+            )
+          )
         )
       ));
       cryptosList.add(const SizedBox(height: 20));

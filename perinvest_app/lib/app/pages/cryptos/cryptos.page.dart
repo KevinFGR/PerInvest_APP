@@ -38,7 +38,7 @@ class CryptosPageState extends State<CryptosPage> {
             // } 
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: cryptosController.getCryptosList()
+              children: cryptosController.getCryptosList(context),
             );
           }
         )

@@ -35,8 +35,7 @@ class PagesState extends State<Pages> {
           //   child: 
           // ),
           Expanded(child: cryptosPage),
-
-           // --- BOTTOM BAR fixo (exemplo)
+          
           Container(
             height:100,
             width: double.infinity,
