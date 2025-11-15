@@ -20,7 +20,6 @@ class PagesState extends State<Pages> {
   bool isLoading = true;
 
   void changePageCallback(Widget? page) {
-    print("Pai recebeu: uma pagina");
     setState(() {
       currentPage = page ?? CryptosPage(onChangePage: changePageCallback);
     });
@@ -46,8 +45,8 @@ class PagesState extends State<Pages> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Topbar(title: pagesController.title),
+          
           Expanded(child: currentPage),
-          // Expanded(child: cryptosPage),
 
           Container(
             height:100,

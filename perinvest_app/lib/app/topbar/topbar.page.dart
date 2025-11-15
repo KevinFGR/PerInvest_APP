@@ -27,23 +27,33 @@ class TopbarState extends State<Topbar> {
       alignment: Alignment.bottomCenter,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children:[
-          IconButton(
-            icon: const Icon(Icons.arrow_back_ios),
-            onPressed: () {
-              debugPrint("Clicou no botão!");
-              TopbarController.logout(context);
-            },
-          ),
-          Text(
-            widget.title,
-            style: TextStyle(
-              fontSize: 27,
-              fontWeight: FontWeight.bold,
-              color: Colors.amber.shade900
+          Align(
+            alignment: Alignment.centerLeft,
+            child: IconButton(
+              icon: const Icon(Icons.arrow_back_ios),
+              onPressed: () => TopbarController.logout(context),
             ),
           ),
+          Expanded(
+            child: Center(
+              child: Text(
+                widget.title,
+                style: TextStyle(
+                  fontSize: 27,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.amber.shade900
+                ),
+              ),
+            ),
+          ),
+          Opacity(
+            opacity: 0,
+            child: IconButton(
+              icon: const Icon(Icons.arrow_back_ios),
+              onPressed: () {},
+            ),
+          )
         ]
       )
     );
