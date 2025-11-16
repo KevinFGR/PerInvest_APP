@@ -69,15 +69,15 @@ class CryptosFormPageState extends State<CryptosFormPage> {
               padding: EdgeInsets.zero,
               borderRadius: BorderRadius.circular(30),
               color: Colors.transparent,
-              child: const Text(
-                "Salvar",
+              child: Text(
+                controller.isLoading ? "carregando" : "Salvar",
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
                 ),
               ),
-              onPressed: () { },
+              onPressed: () async => await controller.save(),
             ),
           )
         ],
