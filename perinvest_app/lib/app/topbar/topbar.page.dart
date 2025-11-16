@@ -43,7 +43,17 @@ class TopbarState extends State<Topbar> {
                 style: TextStyle(
                   fontSize: 27,
                   fontWeight: FontWeight.bold,
-                  color: ColorHelper.primary
+                  foreground: Paint()..shader = LinearGradient(
+                    colors: [
+                      ColorHelper.primary,
+                      ColorHelper.primary,
+                      ColorHelper.primary,
+                      ColorHelper.primaryLight,
+                      ColorHelper.primary,
+                      ColorHelper.primary,
+                      ColorHelper.primary,
+                    ],
+                  ).createShader(const Rect.fromLTWH(0, 200, 450, 50))
                 ),
               ),
             ),
