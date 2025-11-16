@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:perinvest_app/app/pages/cryptos/cryptos.page.dart';
 import 'package:perinvest_app/app/pages.controller.dart';
 import 'package:perinvest_app/app/topbar/topbar.page.dart';
+import 'package:perinvest_app/helpers/color.helper.dart';
 
 class Pages extends StatefulWidget {
   const Pages({super.key});
@@ -51,7 +52,7 @@ class PagesState extends State<Pages> {
           Container(
             height:100,
             width: double.infinity,
-            color: Colors.grey[900],
+            color: ColorHelper.darkLight,
             padding: const EdgeInsets.all(12),
             child: const Text('Bottom bar (fixa)'),
           ),

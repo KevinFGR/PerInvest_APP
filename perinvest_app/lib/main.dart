@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:perinvest_app/app/auth/auth.page.dart';
+import 'package:perinvest_app/helpers/color.helper.dart';
 
 void main() {
   runApp(const PerInvestApp());
@@ -15,7 +16,7 @@ class PerInvestApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.deepPurple,
+          seedColor: ColorHelper.primary,
           brightness: Brightness.dark
           ),
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:perinvest_app/app/topbar/topbar.controller.dart';
+import 'package:perinvest_app/helpers/color.helper.dart';
 
 class Topbar extends StatefulWidget {
   const Topbar({super.key, required this.title});
@@ -22,7 +23,7 @@ class TopbarState extends State<Topbar> {
   Widget build(BuildContext context) {
     return Container(
       height: 70,
-      color: Colors.grey.shade900,
+      color: ColorHelper.darkLight,
       width: double.infinity,
       alignment: Alignment.bottomCenter,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -42,7 +43,7 @@ class TopbarState extends State<Topbar> {
                 style: TextStyle(
                   fontSize: 27,
                   fontWeight: FontWeight.bold,
-                  color: Colors.amber.shade900
+                  color: ColorHelper.primary
                 ),
               ),
             ),

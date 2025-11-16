@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:perinvest_app/app/pages/cryptos/cryptos.controller.dart';
+import 'package:perinvest_app/helpers/color.helper.dart';
 
 class CryptosPage extends StatefulWidget {
     final Function(Widget) onChangePage;
@@ -28,7 +29,7 @@ class CryptosPageState extends State<CryptosPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color:Colors.grey.shade900.withValues(alpha: 0.4),
+      color:ColorHelper.darkLight.withValues(alpha: 0.4),
       width: MediaQuery.of(context).size.width,
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child:SingleChildScrollView(

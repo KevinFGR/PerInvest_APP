@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:perinvest_app/helpers/color.helper.dart';
 import 'package:perinvest_app/helpers/toast.helper.dart';
 import 'package:perinvest_app/services/cryptos.service.dart';
 
@@ -26,7 +27,7 @@ class PagesController extends ChangeNotifier{
     for (var i = 0; i < cryptos.length; i++) {
       cryptosList.add(Container(
         decoration: BoxDecoration(
-          color: Colors.grey.shade900,
+          color: ColorHelper.darkLight,
           // gradient: LinearGradient(
           //   begin: Alignment.centerLeft,
           //   end: Alignment.centerRight,
@@ -38,12 +39,12 @@ class PagesController extends ChangeNotifier{
           // ),
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
-            color: Colors.amber.shade900,
+            color: ColorHelper.primary,
             width: 0.3,             
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.amber.shade900.withValues(alpha:0.3),
+              color: ColorHelper.primary.withValues(alpha:0.3),
               spreadRadius: 1,
               blurRadius: 3,
               offset: const Offset(0, 0)

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:perinvest_app/app/auth/auth.controller.dart';
+import 'package:perinvest_app/helpers/color.helper.dart';
 
 
 class LoginPage extends StatefulWidget {
@@ -30,8 +31,8 @@ class _LoginPageState extends State<LoginPage> {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Colors.amber.shade900, 
-              Colors.amber.shade900.withValues(alpha:0.1)
+              ColorHelper.primary, 
+              ColorHelper.primary.withValues(alpha:0.1)
               // const Color.fromARGB(255, 0, 16, 28)
             ],
             begin: Alignment.topCenter,
@@ -127,13 +128,28 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(height:30),
 
             // Acessar
-            SizedBox(
-              width: double.infinity,
+            // SizedBox(
+            //   width: double.infinity,
+            //   child: 
+            Container(
+            width: MediaQuery.of(context).size.width * 0.7,
+            height: 45,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+              gradient: LinearGradient(
+                colors: [
+                  ColorHelper.primaryLight,
+                  ColorHelper.primary,
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
               child: CupertinoButton(
                 borderRadius: const BorderRadius.all(
                   Radius.circular(30),
                 ),
-                color: Colors.amber[900],
+                color: Colors.transparent,
                 child: Text(
                   isLoading ? "carregando..." : "Acessar",
                   style:TextStyle(
