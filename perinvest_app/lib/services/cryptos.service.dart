@@ -16,7 +16,7 @@ class CryptosService{
   static Future getById(String id) async {
     final  client = http.Client();
     final res =  await client.get(
-      Uri.parse("${Environment.apiUrl}/cryptos?id=$id"),
+      Uri.parse("${Environment.apiUrl}/cryptos/$id"),
       headers: await PerInvestHelper.requestHeader()
     );
     return jsonDecode(res.body);
@@ -26,6 +26,17 @@ class CryptosService{
     final  client = http.Client();
     String body = jsonEncode(map);
     final res =  await client.post(
+      Uri.parse("${Environment.apiUrl}/cryptos"),
+      headers: await PerInvestHelper.requestHeader(),
+      body: body
+    );
+    return jsonDecode(res.body);
+  }
+
+  static Future update(Map<String, String> map) async {
+    final  client = http.Client();
+    String body = jsonEncode(map);
+    final res =  await client.put(
       Uri.parse("${Environment.apiUrl}/cryptos"),
       headers: await PerInvestHelper.requestHeader(),
       body: body

@@ -7,22 +7,17 @@ class CryptosFormController extends ChangeNotifier{
   final TextEditingController colorController = TextEditingController();
 
   final String? idCrypto;
-
-
   bool isLoading = false;
   bool isEdit = false;
 
   CryptosFormController({this.idCrypto}) {
     descriptionController.addListener(_onNameChanged);
     colorController.addListener(_onNameChanged);
-
-    verifyIsEdit();
+    Future.microtask(() async => await verifyIsEdit());
   }
 
   
-  void _onNameChanged() {
-    // notifyListeners(); // para ouvir as mudanças na UI
-  }
+  void _onNameChanged() { /* notifyListeners();  para ouvir as mudanças na UI*/ }
 
   @override
   void dispose() {
@@ -45,8 +40,12 @@ class CryptosFormController extends ChangeNotifier{
     try{
       isLoading = true;
       dynamic response = await CryptosService.getById(idCrypto ?? "");
-      descriptionController.text = response["description"];
-      colorController.text = response["color"];
+      if(response["success"]){
+        descriptionController.text = response["data"]["description"];
+        colorController.text = response["data"]["color"];
+      } else {
+        ToastHelper.error(response["message"]);
+      }
     } catch(ex) {
       ToastHelper.error("Falha ao buscar Crypto");
     } finally {
@@ -60,11 +59,14 @@ class CryptosFormController extends ChangeNotifier{
       if(isLoading) return;
       isLoading = true;
       dynamic body = {
+        "id": idCrypto ?? "",
         "description": descriptionController.text,
         "color": colorController.text,
       };
-      dynamic res = await CryptosService.insert(body);
-      print(res);
+      dynamic res = isEdit
+        ? await CryptosService.update(body) 
+        : await CryptosService.insert(body);
+        
       if(!res['success']) {
         ToastHelper.warning(res['message']);
       } else{
