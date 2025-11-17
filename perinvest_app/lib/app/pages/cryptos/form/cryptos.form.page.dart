@@ -5,19 +5,22 @@ import 'package:perinvest_app/helpers/color.helper.dart';
 import 'package:perinvest_app/helpers/widget.helper.dart';
 
 class CryptosFormPage extends StatefulWidget {
+  const CryptosFormPage({this.idCrypto, super.key});
 
-  const CryptosFormPage({super.key});
+  final String? idCrypto; 
 
   @override
   State<CryptosFormPage> createState() => CryptosFormPageState();
 }
 
 class CryptosFormPageState extends State<CryptosFormPage> {
-  final controller = CryptosFormController();
+  late final CryptosFormController controller;
 
   @override
   void initState() {
     super.initState();
+    controller = CryptosFormController(idCrypto: widget.idCrypto);
+    // await controller.verifyIsEdit();
   }
 
   @override
@@ -70,7 +73,7 @@ class CryptosFormPageState extends State<CryptosFormPage> {
               borderRadius: BorderRadius.circular(30),
               color: Colors.transparent,
               child: Text(
-                controller.isLoading ? "carregando" : "Salvar",
+                controller.isLoading ? "carregando..." : "Salvar",
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,

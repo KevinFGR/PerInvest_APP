@@ -16,17 +16,9 @@ class CryptosController extends ChangeNotifier{
     callbackPage = func;
   }
 
-  static void goToCreate(BuildContext context) {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => const CryptosFormPage()),
-    );
-  }
-
   Future<void> getCryptos() async {
     isLoading = true;
-    CryptosService cryptosService =  CryptosService();
-    dynamic res = await cryptosService.get();
+    dynamic res = await CryptosService.get();
     if(!res['success']) {
       ToastHelper.warning(res['message']);
     } else{
@@ -42,7 +34,7 @@ class CryptosController extends ChangeNotifier{
       cryptosList.add(SizedBox(
         width: double.infinity,
         child: GestureDetector(
-          onTap: () => callbackPage?.call(CryptosFormPage()),
+          onTap: () => callbackPage?.call(CryptosFormPage(idCrypto: cryptos[i]["id"],)),
           child: Container(
             decoration: BoxDecoration(
               color: ColorHelper.darkLight,
@@ -89,11 +81,5 @@ class CryptosController extends ChangeNotifier{
     
     notifyListeners();
     return cryptosList;
-  }
-
-  Color hexadecimalColor(String hex) {
-    hex = hex.replaceAll('#', '');
-    if (hex.length == 6) hex = 'FF$hex';
-    return Color(int.parse(hex, radix: 16));
   }
 }
