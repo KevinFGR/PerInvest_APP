@@ -19,8 +19,7 @@ class LoginController {
       'email': email,
       'password': pass,
     };
-    AuthService authService =  AuthService();
-    dynamic res = await authService.auth(body);
+    dynamic res = await AuthService.auth(body);
     if(!res['success']) {
       ToastHelper.warning(res['message']);
       return false;
