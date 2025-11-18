@@ -3,8 +3,8 @@ import 'package:perinvest_app/app/pages/cryptos/cryptos.controller.dart';
 import 'package:perinvest_app/helpers/color.helper.dart';
 
 class CryptosPage extends StatefulWidget {
-    final Function(Widget) onChangePage;
-    const CryptosPage({super.key, required this.onChangePage});
+    const CryptosPage({super.key, required this.onPageChange});
+    final Function(Widget) onPageChange;
 
   @override
   State<CryptosPage> createState() => CryptosPageState();
@@ -16,7 +16,7 @@ class CryptosPageState extends State<CryptosPage> {
   @override
   void initState() {
     super.initState();
-    cryptosController.initCallback(widget.onChangePage);
+    cryptosController.initCallback(widget.onPageChange);
     cryptosController.getCryptos();
   }
 

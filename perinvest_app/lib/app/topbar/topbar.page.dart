@@ -3,7 +3,10 @@ import 'package:perinvest_app/app/topbar/topbar.controller.dart';
 import 'package:perinvest_app/helpers/color.helper.dart';
 
 class Topbar extends StatefulWidget {
-  const Topbar({super.key, required this.title});
+
+  const Topbar({super.key, this.backPage, required this.onPageChange, required this.title});
+  final Function(Widget) onPageChange;
+  final Widget? backPage;
   final String title;
 
   @override
@@ -11,11 +14,17 @@ class Topbar extends StatefulWidget {
 }
 
 class TopbarState extends State<Topbar> {
-  final topbarController = TopbarController();
+  final controller = TopbarController();
+
+  @override
+  void initState(){
+    super.initState();
+    controller.initCallback(widget.onPageChange);
+  }
 
   @override
   void dispose() {
-    topbarController.dispose();
+    controller.dispose();
     super.dispose();
   }
 
@@ -29,13 +38,16 @@ class TopbarState extends State<Topbar> {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       child: Row(
         children:[
-          Align(
-            alignment: Alignment.centerLeft,
-            child: IconButton(
-              icon: const Icon(Icons.arrow_back_ios),
-              onPressed: () => TopbarController.logout(context),
+          if(widget.backPage != null) ...[
+            // Validar para não aparecer caso back page seja igual ao current page
+            Align(
+              alignment: Alignment.centerLeft,
+              child: IconButton(
+                icon: const Icon(Icons.arrow_back_ios),
+                onPressed: () => controller.backPage(widget.backPage),
+              ),
             ),
-          ),
+          ],
           Expanded(
             child: Center(
               child: Text(
@@ -58,13 +70,16 @@ class TopbarState extends State<Topbar> {
               ),
             ),
           ),
-          Opacity(
-            opacity: 0,
-            child: IconButton(
-              icon: const Icon(Icons.arrow_back_ios),
-              onPressed: () {},
-            ),
-          )
+          
+          if(widget.backPage != null) ...[
+            Opacity(
+              opacity: 0,
+              child: IconButton(
+                icon: const Icon(Icons.arrow_back_ios),
+                onPressed: () {},
+              ),
+            )
+          ]
         ]
       )
     );

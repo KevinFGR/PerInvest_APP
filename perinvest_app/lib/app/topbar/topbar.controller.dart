@@ -1,17 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:perinvest_app/app/auth/auth.page.dart';
 
 
 class TopbarController extends ChangeNotifier{
 
   bool isLoading = true;
+  Function(Widget)? pageCallback;
 
-  static void logout(BuildContext context) {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => const LoginPage()),
-    );
+  void initCallback(Function(Widget) func) {
+    pageCallback = func;
   }
 
-
+  void backPage(Widget? backPage){
+    if(backPage != null) {
+      pageCallback?.call(backPage);
+    }
+  }
+  
+  
+  // static void logout(BuildContext context) {
+  //   Navigator.pushReplacement(
+  //     context,
+  //     MaterialPageRoute(builder: (context) => const LoginPage()),
+  //   );
+  // }
 }

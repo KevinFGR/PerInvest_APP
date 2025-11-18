@@ -10,10 +10,10 @@ class CryptosController extends ChangeNotifier{
   List<dynamic> cryptos = [];
   bool isLoading = true;
 
-  Function(Widget)? callbackPage;
+  Function(Widget)? pageCallback;
 
   void initCallback(Function(Widget) func) {
-    callbackPage = func;
+    pageCallback = func;
   }
 
   Future<void> getCryptos() async {
@@ -34,7 +34,7 @@ class CryptosController extends ChangeNotifier{
       cryptosList.add(SizedBox(
         width: double.infinity,
         child: GestureDetector(
-          onTap: () => callbackPage?.call(CryptosFormPage(idCrypto: cryptos[i]["id"],)),
+          onTap: () => pageCallback?.call(CryptosFormPage(idCrypto: cryptos[i]["id"],)),
           child: Container(
             decoration: BoxDecoration(
               color: ColorHelper.darkLight,
@@ -56,14 +56,6 @@ class CryptosController extends ChangeNotifier{
                 color: ColorHelper.primary.withValues(alpha:0.7),
                 width: 0.5,             
               ),
-              // boxShadow: [
-              //   BoxShadow(
-              //     color: ColorHelper.primary.withValues(alpha:0.3),
-              //     spreadRadius: 1,
-              //     blurRadius: 3,
-              //     offset: const Offset(0, 0)
-              //   ),
-              // ],
             ),
             padding: const EdgeInsets.all(15),
             child: Row(
