@@ -34,7 +34,7 @@ class CryptosController extends ChangeNotifier{
       cryptosList.add(SizedBox(
         width: double.infinity,
         child: GestureDetector(
-          onTap: () => pageCallback?.call(CryptosFormPage(idCrypto: cryptos[i]["id"],)),
+          onTap: () => pageCallback?.call(CryptosFormPage(idCrypto: cryptos[i]["id"], onPageChange: pageCallback!,)),
           child: Container(
             decoration: BoxDecoration(
               color: ColorHelper.darkLight,

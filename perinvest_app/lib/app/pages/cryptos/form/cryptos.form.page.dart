@@ -5,8 +5,8 @@ import 'package:perinvest_app/helpers/color.helper.dart';
 import 'package:perinvest_app/helpers/widget.helper.dart';
 
 class CryptosFormPage extends StatefulWidget {
-  const CryptosFormPage({this.idCrypto, super.key});
-
+  const CryptosFormPage({super.key, required this.onPageChange, this.idCrypto});
+  final Function(Widget) onPageChange;
   final String? idCrypto; 
 
   @override
@@ -19,7 +19,8 @@ class CryptosFormPageState extends State<CryptosFormPage> {
   @override
   void initState() {
     super.initState();
-    controller = CryptosFormController(idCrypto: widget.idCrypto);
+    controller = CryptosFormController(widget.idCrypto);
+    controller.initCallback(widget.onPageChange);
   }
 
   @override

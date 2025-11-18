@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:perinvest_app/app/pages/cryptos/cryptos.page.dart';
 import 'package:perinvest_app/helpers/toast.helper.dart';
 import 'package:perinvest_app/services/cryptos.service.dart';
 
 class CryptosFormController extends ChangeNotifier{
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController colorController = TextEditingController();
+  Function(Widget)? pageCallback;
 
   final String? idCrypto;
   bool isLoading = false;
   bool isEdit = false;
 
-  CryptosFormController({this.idCrypto}) {
+  void initCallback(Function(Widget) func) {
+    pageCallback = func;
+  }
+
+  CryptosFormController(this.idCrypto) {
     descriptionController.addListener(_onNameChanged);
     colorController.addListener(_onNameChanged);
     Future.microtask(() async => await verifyIsEdit());
   }
-
   
   void _onNameChanged() { /* notifyListeners();  para ouvir as mudanças na UI*/ }
 
@@ -67,10 +72,11 @@ class CryptosFormController extends ChangeNotifier{
         ? await CryptosService.update(body) 
         : await CryptosService.insert(body);
         
-      if(!res['success']) {
-        ToastHelper.warning(res['message']);
-      } else{
+      if(res['success']) {
         ToastHelper.success(res['message']);
+        pageCallback?.call(CryptosPage(onPageChange: pageCallback!,));
+      } else{
+        ToastHelper.warning(res['message']);
       }
     } catch(ex) {
         ToastHelper.error("Falha ao salvar Crypto");
