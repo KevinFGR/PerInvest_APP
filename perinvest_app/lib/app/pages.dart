@@ -22,6 +22,7 @@ class PagesState extends State<Pages> {
     super.initState();
 
     currentPage = CryptosPage(onPageChange: changePageCallback);
+    backPage = currentPage;
     changePageCallback(CryptosPage(onPageChange: changePageCallback));
   }
 
@@ -33,8 +34,8 @@ class PagesState extends State<Pages> {
 
   void changePageCallback(Widget? page) {
     setState(() {
-      backPage = currentPage;
-      currentPage = page ?? CryptosPage(onPageChange: changePageCallback);
+        backPage = backPage != page ? currentPage : null;
+        currentPage = page ?? CryptosPage(onPageChange: changePageCallback);
     });
   }
 
