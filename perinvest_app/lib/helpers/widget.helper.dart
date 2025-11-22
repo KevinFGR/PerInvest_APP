@@ -74,7 +74,7 @@ class WidgetHelper{
             ),
             child: FloatingActionButton(
               backgroundColor: Colors.transparent,
-              onPressed: () => function,
+              onPressed: function,
               child: icon ?? Icon(Icons.add),
             ),
           );
