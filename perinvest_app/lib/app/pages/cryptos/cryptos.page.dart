@@ -11,41 +11,70 @@ class CryptosPage extends StatefulWidget {
 }
 
 class CryptosPageState extends State<CryptosPage> {
-  final cryptosController = CryptosController();
+  final controller = CryptosController();
 
   @override
   void initState() {
     super.initState();
-    cryptosController.initCallback(widget.onPageChange);
-    cryptosController.getCryptos();
+    controller.initCallback(widget.onPageChange);
+    controller.getCryptos();
   }
 
   @override
   void dispose() {
-    cryptosController.dispose(); // importante liberar
+    controller.dispose(); // importante liberar
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color:ColorHelper.darkLight.withValues(alpha: 0.4),
-      width: MediaQuery.of(context).size.width,
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-      child:SingleChildScrollView(
-        child: ListenableBuilder(
-          listenable: cryptosController,
-          builder: (context, child) {
-            // if (cryptosController.isLoading) {
-            //   return const Center(child: CircularProgressIndicator());
-            // }
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: cryptosController.getCryptosList(context),
-            );
-          }
-        )
-      )
+    return Stack(
+      children: [
+        Container(
+          color:ColorHelper.darkLight.withValues(alpha: 0.4),
+          width: MediaQuery.of(context).size.width,
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          child:SingleChildScrollView(
+            child: ListenableBuilder(
+              listenable: controller,
+              builder: (context, child) {
+                // if (controller.isLoading) {
+                //   return const Center(child: CircularProgressIndicator());
+                // }
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: controller.getCryptosList(context),
+                );
+              }
+            )
+          )
+        ),
+        Positioned(
+          bottom: 20,
+          right: 20,
+          child: Container(
+            decoration: BoxDecoration(
+              color: ColorHelper.darkLight,
+              gradient: LinearGradient(
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+                colors: [
+                  ColorHelper.primary,
+                  ColorHelper.primaryLight,
+                ]
+              ),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: FloatingActionButton(
+              backgroundColor: Colors.transparent,
+              onPressed: () {
+                controller.openCryptosForm(null);
+              },
+              child: Icon(Icons.add),
+            ),
+          ),
+        ),
+      ]
     );
   }
 }

@@ -34,7 +34,8 @@ class CryptosController extends ChangeNotifier{
       cryptosList.add(SizedBox(
         width: double.infinity,
         child: GestureDetector(
-          onTap: () => pageCallback?.call(CryptosFormPage(idCrypto: cryptos[i]["id"], onPageChange: pageCallback!,)),
+          onTap: () => openCryptosForm(cryptos[i]["id"]),
+          // onTap: () => pageCallback?.call(CryptosFormPage(idCrypto: cryptos[i]["id"], onPageChange: pageCallback!,)),
           child: Container(
             decoration: BoxDecoration(
               color: ColorHelper.darkLight,
@@ -48,7 +49,6 @@ class CryptosController extends ChangeNotifier{
                   ColorHelper.primary,
                   ColorHelper.darkLight,
                 ],
-                // stops: [0.8, 0.95, 0.99]
                 stops: [0.55, 0.60, 0.65, 0.7, 0.99]
               ),
               borderRadius: BorderRadius.circular(10),
@@ -73,5 +73,13 @@ class CryptosController extends ChangeNotifier{
     
     notifyListeners();
     return cryptosList;
+  }
+
+  void openCryptosForm(String? id){
+    if(id != null){
+      pageCallback?.call(CryptosFormPage(idCrypto: id, onPageChange: pageCallback!));
+    }else{
+      pageCallback?.call(CryptosFormPage(onPageChange: pageCallback!));
+    }
   }
 }
