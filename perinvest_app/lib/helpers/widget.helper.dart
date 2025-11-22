@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:perinvest_app/helpers/color.helper.dart';
 
 class WidgetHelper{
   static List<Widget> formTextField({
@@ -55,5 +56,27 @@ class WidgetHelper{
       ),
       SizedBox(height: marginButton ?? 5)
     ];
+  }
+
+  static Widget floatButton({Function()? function, Icon? icon}){
+    return Container(
+            decoration: BoxDecoration(
+              color: ColorHelper.darkLight,
+              gradient: LinearGradient(
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+                colors: [
+                  ColorHelper.primary,
+                  ColorHelper.primaryLight,
+                ]
+              ),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: FloatingActionButton(
+              backgroundColor: Colors.transparent,
+              onPressed: () => function,
+              child: icon ?? Icon(Icons.add),
+            ),
+          );
   }
 }
