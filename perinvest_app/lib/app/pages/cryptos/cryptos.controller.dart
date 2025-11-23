@@ -34,8 +34,21 @@ class CryptosController extends ChangeNotifier{
       cryptosList.add(SizedBox(
         width: double.infinity,
         child: GestureDetector(
-          onTap: () => openCryptosForm(cryptos[i]["id"]),
-          // onTap: () => pageCallback?.call(CryptosFormPage(idCrypto: cryptos[i]["id"], onPageChange: pageCallback!,)),
+          // onTap: () => openCryptosForm(cryptos[i]["id"]),
+          onTap: () {
+            showModalBottomSheet(
+              context: context, 
+
+              builder: (BuildContext context){
+                final size = MediaQuery.of(context).size;
+                return Container(
+                  height:size.height * 0.4, 
+                  width: size.width,
+                  child:Text("TESTE")
+                );
+              }
+            );
+          },
           child: Container(
             decoration: BoxDecoration(
               color: ColorHelper.darkLight,
