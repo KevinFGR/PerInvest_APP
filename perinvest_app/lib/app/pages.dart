@@ -12,30 +12,34 @@ class Pages extends StatefulWidget {
 }
 
 class PagesState extends State<Pages> {
-  final pagesController = PagesController();
+  final controller = PagesController();
   late Widget currentPage;
-  Widget? backPage;
+  late List<Widget> pagesHistory;
   bool isLoading = true;
 
   @override
   void initState() {
     super.initState();
-
     currentPage = CryptosPage(onPageChange: changePageCallback);
-    backPage = currentPage;
-    changePageCallback(CryptosPage(onPageChange: changePageCallback));
+    pagesHistory = [];
   }
 
   @override
   void dispose() {
-    pagesController.dispose();
+    controller.dispose();
     super.dispose();
   }
 
-  void changePageCallback(Widget? page) {
+  void changePageCallback(Widget page) {
     setState(() {
-        backPage = backPage != page ? currentPage : null;
-        currentPage = page ?? CryptosPage(onPageChange: changePageCallback);
+      int index = pagesHistory.indexWhere((x) => x.runtimeType == page.runtimeType);
+      if (index != -1) {
+        pagesHistory.removeRange(index, pagesHistory.length);
+        // pagesHistory.removeAt(index);
+      } else {
+        pagesHistory.add(currentPage);
+      }
+      currentPage = page;
     });
   }
 
@@ -47,8 +51,8 @@ class PagesState extends State<Pages> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Topbar(
-            title: pagesController.title,
-            backPage: backPage,
+            title: controller.title,
+            pagesHistory: pagesHistory,
             onPageChange: changePageCallback
           ),
           

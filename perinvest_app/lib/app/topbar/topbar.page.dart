@@ -4,9 +4,9 @@ import 'package:perinvest_app/helpers/color.helper.dart';
 
 class Topbar extends StatefulWidget {
 
-  const Topbar({super.key, this.backPage, required this.onPageChange, required this.title});
+  const Topbar({super.key, required this.pagesHistory, required this.onPageChange, required this.title});
   final Function(Widget) onPageChange;
-  final Widget? backPage;
+  final List<Widget> pagesHistory;
   final String title;
 
   @override
@@ -38,13 +38,12 @@ class TopbarState extends State<Topbar> {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       child: Row(
         children:[
-          if(widget.backPage != null) ...[
-            // Validar para não aparecer caso back page seja igual ao current page
+          if(widget.pagesHistory.isNotEmpty) ...[
             Align(
               alignment: Alignment.centerLeft,
               child: IconButton(
                 icon: const Icon(Icons.arrow_back_ios),
-                onPressed: () => controller.backPage(widget.backPage),
+                onPressed: () => controller.backPage(widget.pagesHistory.last),
               ),
             ),
           ],
@@ -71,7 +70,7 @@ class TopbarState extends State<Topbar> {
             ),
           ),
           
-          if(widget.backPage != null) ...[
+          if(widget.pagesHistory.isNotEmpty) ...[
             Opacity(
               opacity: 0,
               child: IconButton(
