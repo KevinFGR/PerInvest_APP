@@ -122,6 +122,7 @@ class CryptosController extends ChangeNotifier{
   }
 
   void openCryptosForm(String? id){
+    if(isLoading) return;
     if(id != null){
       pageCallback?.call(CryptosFormPage(idCrypto: id, onPageChange: pageCallback!));
     }else{
