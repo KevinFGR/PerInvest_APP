@@ -79,4 +79,29 @@ class WidgetHelper{
             ),
           );
   }
+
+  static Future confirm(BuildContext context, Function function){
+    return showDialog(
+      context: context,
+      builder:(BuildContext context) {
+        return AlertDialog(
+          title:Text("Deseja realmente excluir este item?"),
+          content: Text("Não sera mais possível recuperar este item após exclusão"),
+          actions: [
+            TextButton(
+              onPressed: () => {
+                Navigator.of(context).pop(false),
+                function()
+              }, 
+              child: Text("Confirmar", style: TextStyle(color: ColorHelper.primary),)
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false), 
+              child: Text("Cancelar")
+            ),
+          ],
+        );
+      }
+    );
+  }
 }
