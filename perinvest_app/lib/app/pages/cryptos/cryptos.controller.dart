@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:perinvest_app/app/pages/cryptos/form/cryptos.form.page.dart';
 import 'package:perinvest_app/helpers/color.helper.dart';
 import 'package:perinvest_app/helpers/toast.helper.dart';
+import 'package:perinvest_app/helpers/widget.helper.dart';
 import 'package:perinvest_app/services/cryptos.service.dart';
 
 
@@ -34,17 +35,49 @@ class CryptosController extends ChangeNotifier{
       cryptosList.add(SizedBox(
         width: double.infinity,
         child: GestureDetector(
-          // onTap: () => openCryptosForm(cryptos[i]["id"]),
           onTap: () {
             showModalBottomSheet(
               context: context, 
-
               builder: (BuildContext context){
                 final size = MediaQuery.of(context).size;
                 return Container(
                   height:size.height * 0.4, 
                   width: size.width,
-                  child:Text("TESTE")
+                  padding: EdgeInsets.all(20),
+                  child:Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          IconButton(
+                            icon: Icon(Icons.delete, color: ColorHelper.danger),
+                            onPressed: () => {
+                              Navigator.pop(context),
+                              WidgetHelper.confirm(context, () async => await delete(cryptos[i]["id"]))
+                            }
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.edit, color: ColorHelper.primary),
+                            onPressed: () => {
+                              Navigator.pop(context),
+                              openCryptosForm(cryptos[i]["id"])
+                            }
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.close),
+                            onPressed: () => Navigator.pop(context),
+                          )
+                        ],
+                      ),
+                      Text("Descrição:", style: TextStyle(fontWeight: FontWeight.bold,),),
+                      Text(cryptos[i]["description"]),
+                      const SizedBox(height:15),
+                      Text("Cor:", style: TextStyle(fontWeight: FontWeight.bold,),),
+                      Text(cryptos[i]["color"]),
+                    ],
+                  )
                 );
               }
             );
@@ -93,6 +126,26 @@ class CryptosController extends ChangeNotifier{
       pageCallback?.call(CryptosFormPage(idCrypto: id, onPageChange: pageCallback!));
     }else{
       pageCallback?.call(CryptosFormPage(onPageChange: pageCallback!));
+    }
+  }
+
+  Future delete(String id) async {
+    try {
+      if(isLoading) return;
+      isLoading = true;
+      dynamic res = await CryptosService.delete(id);
+        
+      if(res['success']) {
+        ToastHelper.success(res['message']);
+      } else{
+        ToastHelper.warning(res['message']);
+      }
+    } catch(ex) {
+        ToastHelper.error("Falha ao excluir Crypto");
+    } finally {
+      isLoading = false;
+      await getCryptos();
+      notifyListeners();
     }
   }
 }
