@@ -7,7 +7,7 @@ class CryptosService{
   static Future get() async {
     final  client = http.Client();
     final res =  await client.get(
-      Uri.parse("${Environment.apiUrl}/cryptos"),
+      Uri.parse("${Environment.apiUrl}/cryptos?deleted=false"),
       headers: await PerInvestHelper.requestHeader()
     );
     return jsonDecode(res.body);
@@ -40,6 +40,15 @@ class CryptosService{
       Uri.parse("${Environment.apiUrl}/cryptos"),
       headers: await PerInvestHelper.requestHeader(),
       body: body
+    );
+    return jsonDecode(res.body);
+  }
+
+  static Future delete(String id) async {
+    final  client = http.Client();
+    final res =  await client.delete(
+      Uri.parse("${Environment.apiUrl}/cryptos/$id"),
+      headers: await PerInvestHelper.requestHeader(),
     );
     return jsonDecode(res.body);
   }
