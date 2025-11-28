@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:perinvest_app/app/pages/cryptos/cryptos.page.dart';
-import 'package:perinvest_app/app/pages.controller.dart';
+import 'package:perinvest_app/app/pages/pages.controller.dart';
 import 'package:perinvest_app/app/topbar/topbar.page.dart';
 import 'package:perinvest_app/helpers/color.helper.dart';
 
@@ -62,9 +62,39 @@ class PagesState extends State<Pages> {
             height:100,
             width: double.infinity,
             color: ColorHelper.darkLight,
-            padding: const EdgeInsets.all(12),
-            child: const Text('Bottom bar (fixa)'),
-          ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    height:100,
+                    padding: EdgeInsets.only(
+                      left:25,
+                      right:25,
+                      bottom:25,
+                    ),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.bottomCenter,
+                        end: Alignment.topCenter,
+                        colors: [
+                          ColorHelper.darkLight,
+                          ColorHelper.darkLight,
+                          ColorHelper.primary,
+                        ],
+                        stops: [0, 0.7, 1]
+                      ),
+                      border: Border(
+                        top: BorderSide(
+                          color: ColorHelper.primary.withValues(alpha:0.3),
+                          width: 0.5,             
+                        ),
+                      ), 
+                    ),
+                    child: Icon(Icons.currency_bitcoin, color: ColorHelper.primary)
+                  ),
+                ],
+              ),
+            ),
         ],
       )
     );

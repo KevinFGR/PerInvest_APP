@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:perinvest_app/app/pages.dart';
+import 'package:perinvest_app/app/pages/pages.dart';
 import 'package:perinvest_app/helpers/toast.helper.dart';
 import 'package:perinvest_app/services/auth.service.dart';
 import 'package:perinvest_app/services/token.service.dart';
