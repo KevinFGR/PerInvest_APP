@@ -67,6 +67,7 @@ class PagesState extends State<Pages> {
                 children: [
                   Container(
                     height:100,
+                    width: MediaQuery.of(context).size.width * 0.3,
                     padding: EdgeInsets.only(
                       left:25,
                       right:25,
@@ -78,19 +79,35 @@ class PagesState extends State<Pages> {
                         end: Alignment.topCenter,
                         colors: [
                           ColorHelper.darkLight,
-                          ColorHelper.darkLight,
                           ColorHelper.primary,
+                          ColorHelper.primaryLight,
                         ],
-                        stops: [0, 0.7, 1]
+                        stops: [0.9, 0.95, 1]
                       ),
-                      border: Border(
-                        top: BorderSide(
-                          color: ColorHelper.primary.withValues(alpha:0.3),
-                          width: 0.5,             
-                        ),
-                      ), 
                     ),
                     child: Icon(Icons.currency_bitcoin, color: ColorHelper.primary)
+                  ),
+                  
+                  Container(
+                    height:100,
+                    width: MediaQuery.of(context).size.width * 0.3,
+                    padding: EdgeInsets.only(
+                      left:25,
+                      right:25,
+                      bottom:25,
+                    ),
+                    child: Icon(Icons.home, color: Colors.grey)
+                  ),
+
+                  Container(
+                    height:100,
+                    width: MediaQuery.of(context).size.width * 0.3,
+                    padding: EdgeInsets.only(
+                      left:25,
+                      right:25,
+                      bottom:25,
+                    ),
+                    child: Icon(Icons.add_chart, color: Colors.grey)
                   ),
                 ],
               ),
